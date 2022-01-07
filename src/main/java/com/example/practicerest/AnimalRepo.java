@@ -1,34 +1,37 @@
 package com.example.practicerest;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
-@Component
-public class AnimalRepo {
+
+@Repository
+public interface AnimalRepo extends JpaRepository <AnimalEntity, String> {
 
     Map<String, AnimalEntity> animals = new HashMap<>();
 
-    public Stream<AnimalEntity> all(){
+/*
+    default Stream<AnimalEntity> all(){
 
+        //animals.put(UUID.randomUUID().toString(), new AnimalEntity("Lion", "Panthera leo", "", ""));
         return animals.values().stream();
     }
-
-    public AnimalEntity save (AnimalEntity animalEntity){
+    */
+/*
+    default AnimalEntity save(AnimalEntity animalEntity){
         animals.put(animalEntity.getId(), animalEntity);
+
         return animalEntity;
+    }*/
 
-    }
-
-    public Optional <AnimalEntity> get(String id){
+    default Optional <AnimalEntity> get(String id){
         return Optional.ofNullable(animals.get(id));
     }
 
-    public void delete(AnimalEntity animalEntity) {
+    default void delete(AnimalEntity animalEntity) {
         animals.remove(animalEntity.getId());
 
     }

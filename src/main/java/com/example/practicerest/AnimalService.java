@@ -1,6 +1,7 @@
 package com.example.practicerest;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,25 +11,31 @@ import java.util.stream.Stream;
 @Service
 @AllArgsConstructor
 public class AnimalService {
+
+    @Autowired
     AnimalRepo animalRepo;
+
     JsonPlaceHolderRemote jsonPlaceHolderRemote;
 
-
     public Stream<AnimalEntity> all(){
-        return animalRepo.all();
+        return animalRepo.findAll().stream();
+
     }
 
 
     public AnimalEntity createAnimal(String name, String binomialName){
-        AnimalEntity animalEntity = new AnimalEntity(UUID.randomUUID().toString(), name, binomialName, "", "");
+        AnimalEntity animalEntity = new AnimalEntity(name, binomialName, "", "");
+        //animalRepo.save(animalEntity);
         return animalRepo.save(animalEntity);
 
     }
 
-
     public AnimalEntity get(String id) throws AnimalNotFoundException{
-        return animalRepo.get(id)
-                .orElseThrow(() -> new AnimalNotFoundException(id));
+        Optional<AnimalEntity> optionalEntity = animalRepo.findById(id);
+        AnimalEntity animalEntity = optionalEntity.get();
+        return animalEntity;
+        //return animalRepo.get(id)
+          //      .orElseThrow(() -> new AnimalNotFoundException(id));
     }
 
     public AnimalEntity updateAnimal(String id, String name, String binomialName) throws AnimalNotFoundException{

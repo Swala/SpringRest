@@ -22,8 +22,10 @@ public class AnimalController {
     public List<Animal> all(){
 
         return animalService.all().map(AnimalController::toDTO)
-                .collect(Collectors.toList());
+              .collect(Collectors.toList());
+        //return animalService.all().stream().map(AnimalController::toDTO).collect(Collectors.toList());
     }
+
 
     @PostMapping
     public Animal createAnimal(@RequestBody CreateAnimal createAnimal){
