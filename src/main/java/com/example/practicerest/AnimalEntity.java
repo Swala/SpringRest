@@ -1,9 +1,6 @@
 package com.example.practicerest;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
@@ -11,7 +8,6 @@ import java.util.UUID;
 @Entity
 @Table(name="animals")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class AnimalEntity implements Serializable {
@@ -34,8 +30,12 @@ public class AnimalEntity implements Serializable {
 
 
     public AnimalEntity(String name, String binomialName, String s, String s1) {
-    }
+        this.name = name;
+        this.binomialName = binomialName;
+        this.description = s;
+        this.conservationStatus = s1;
 
+    }
 
 }
 /*

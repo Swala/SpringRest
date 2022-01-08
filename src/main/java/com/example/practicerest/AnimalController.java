@@ -13,22 +13,15 @@ public class AnimalController {
 
     AnimalService animalService;
 
-    /*
-    List<Animal> animals = List.of(new Animal(UUID.randomUUID().toString(), "Lion", "Panthera leo", "", ""),
-            new Animal(UUID.randomUUID().toString(), "Goat", "Capra hircus", "", ""),
-            new Animal(UUID.randomUUID().toString(), "Elephant", "Loxodonta", "", ""));*/
-
     @GetMapping
     public List<Animal> all(){
-
         return animalService.all().map(AnimalController::toDTO)
               .collect(Collectors.toList());
-        //return animalService.all().stream().map(AnimalController::toDTO).collect(Collectors.toList());
     }
-
 
     @PostMapping
     public Animal createAnimal(@RequestBody CreateAnimal createAnimal){
+
         return toDTO(animalService.createAnimal(createAnimal.getName(), createAnimal.getBinomialName()));
    }
 
@@ -39,7 +32,6 @@ public class AnimalController {
         }catch (AnimalNotFoundException e){
             return ResponseEntity.notFound().build();
         }
-
    }
 
     //PUT HTTP method is used to modify/update a resource where the client sends data that updates the entire resource.

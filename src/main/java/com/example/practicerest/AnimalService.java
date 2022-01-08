@@ -25,9 +25,7 @@ public class AnimalService {
 
     public AnimalEntity createAnimal(String name, String binomialName){
         AnimalEntity animalEntity = new AnimalEntity(name, binomialName, "", "");
-        //animalRepo.save(animalEntity);
         return animalRepo.save(animalEntity);
-
     }
 
     public AnimalEntity get(String id) throws AnimalNotFoundException{
@@ -52,9 +50,8 @@ public class AnimalService {
     public void delete(String id) throws AnimalNotFoundException{
         AnimalEntity animalEntity = animalRepo.get(id)
                 .orElseThrow(()-> new AnimalNotFoundException(id));
-        System.out.println(id);
-        System.out.println(animalEntity.toString());
-        animalRepo.delete(animalEntity);
+
+        animalRepo.deleteById(animalEntity.getId());
 
     }
 
